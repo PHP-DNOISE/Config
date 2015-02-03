@@ -1,0 +1,32 @@
+{
+    "name": "phpdnoise/config",
+    "type": "library",
+    "description": "YAML configuration loader",
+    "authors":[
+        {
+            "name": "Rafael Calleja",
+	        "email": "rafaelcalleja@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "~5.5",
+        "symfony/yaml": "~2.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.4.0"
+    },
+    "autoload": {
+        "psr-4": { "DNOISE\\Component\\Configuration\\": "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "DNOISE\\Tests\\": "tests/DNOISE"
+        }
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
+}

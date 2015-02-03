@@ -1,0 +1,15 @@
+config:
+  foo: bar
+  foobar: barfoo
+  second:
+    foo: bar
+  array:
+    - element1
+    - element2
+    - element3
+  isfalse:
+    false
+  istrue:
+    true
+  default: ~
+

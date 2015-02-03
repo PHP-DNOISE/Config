@@ -1,0 +1,4 @@
+async:
+  config:
+    foo: bar
+    foobar: barfoo

@@ -1,0 +1,5 @@
+multiple:
+  config:
+    foo: bar
+    foobar: barfoo
+
