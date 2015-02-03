@@ -40,6 +40,15 @@ class LoaderTest extends TestCase
 
     /**
      * @expectedException        \DNOISE\Component\Configuration\Exception\KeyNotFoundException
+     * @expectedExceptionMessage The configuration key 'notload.foo' is not found
+     */
+    public function testOnlyLoadYamlFilesFromDirectories(){
+        $key = 'notload.foo';
+        $this->loader->get($key);
+    }
+
+    /**
+     * @expectedException        \DNOISE\Component\Configuration\Exception\KeyNotFoundException
      * @expectedExceptionMessage The configuration key 'config.exception' is not found
      */
     public function testKeyNotFoundException()

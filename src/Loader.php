@@ -25,7 +25,7 @@ class Loader implements LoaderInterface {
         /** @var \SplFileInfo $configFile */
         foreach ($iterator as $configFile) {
 
-            if ($configFile->isDir()) {
+            if ($configFile->isDir() ||  $configFile->getExtension() !== 'yml' ) {
                 continue;
             }
 
