@@ -29,6 +29,16 @@ class LoaderTest extends TestCase
     }
 
     /**
+     *  @dataProvider getWithDefault
+     */
+    public function testGetValuesWithDefaultIfNotExists($expected, $unknown){
+
+        $actual = $this->loader->get($unknown, $expected);
+        $this->assertEquals($expected, $actual);
+
+    }
+
+    /**
      * @expectedException        \DNOISE\Component\Configuration\Exception\KeyNotFoundException
      * @expectedExceptionMessage The configuration key 'config.exception' is not found
      */

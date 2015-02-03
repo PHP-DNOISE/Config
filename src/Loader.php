@@ -36,7 +36,7 @@ class Loader implements LoaderInterface {
     }
 
 
-    public function get($path){
+    public function get($path, $default = null){
 
         $keys = explode('.', $path);
         $config = $this->config;
@@ -44,6 +44,7 @@ class Loader implements LoaderInterface {
         foreach($keys as $key){
 
             if( ! array_key_exists($key, $config) ){
+                if( $default !== null ) return $default;
                 throw new KeyNotFoundException("The configuration key '$path' is not found");
             }
 
