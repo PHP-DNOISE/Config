@@ -8,9 +8,17 @@ use Symfony\Component\Yaml\Yaml;
 
 class Loader implements LoaderInterface {
 
-    private $config = [];
+    private $config;
+
+    private $parser;
+
+    private $parameterBag;
 
     public function __construct(array $directories = [] ){
+
+        $this->config = [];
+        $this->parameterBag = new ConfigParameterBag();
+        $this->parser = new ConfigParser();
 
         foreach( $directories as $directory ){
             $this->load($directory);
@@ -29,30 +37,33 @@ class Loader implements LoaderInterface {
                 continue;
             }
 
-            $this->config =  array_merge($this->config, Yaml::parse(file_get_contents( $configFile->getRealPath() )) );
+            $config = $this->parser->parse( Yaml::parse(file_get_contents( $configFile->getRealPath() )) );
+            $this->parameterBag->add( $config );
+
+            $this->config = $this->parameterBag->toArray();
 
         }
 
     }
 
+    public function add(array $parameters){
+
+        $this->parameterBag->add($parameters);
+        $this->config = $this->parameterBag->toArray();
+
+    }
 
     public function get($path, $default = null){
 
-        $keys = explode('.', $path);
-        $config = $this->config;
 
-        foreach($keys as $key){
+        if( ! array_key_exists($path, $this->config) ){
 
-            if( ! array_key_exists($key, $config) ){
-                if( $default !== null ) return $default;
+            if( $default !== null ) return $default;
                 throw new KeyNotFoundException("The configuration key '$path' is not found");
-            }
-
-            $config = $config[$key];
 
         }
 
-        return $config;
+        return $this->config[$path];
 
 
     }

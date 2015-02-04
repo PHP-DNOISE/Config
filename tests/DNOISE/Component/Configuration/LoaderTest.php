@@ -68,4 +68,40 @@ class LoaderTest extends TestCase
         $loader->get($key);
     }
 
+    public function testSetNewParameter(){
+
+        $key = 'application.directory';
+        $cwd = __DIR__;
+
+        $this->loader->add( [$key => $cwd ] );
+
+        $actual = $this->loader->get($key);
+        $this->assertEquals($cwd, $actual);
+    }
+
+    /**
+     * @dataProvider listResolvedParamters
+     */
+    public function testResolvedParameters($expected, $path){
+        $this->testGetValueByPathFromYmlConfig($expected, $path);
+    }
+
+    public function listResolvedParamters(){
+        return array(
+            ['test', 'doctrine.dbname'],
+            ['passwordtest', 'doctrine.password'],
+            ['3307', 'doctrine.port'],
+        );
+    }
+
+    public function testResolveAfterSetting(){
+
+        $expected = 'utf8';
+
+        $this->loader->add(['parameters.charset' => $expected]);
+
+        $actual = $this->loader->get('doctrine.charset');
+        $this->assertEquals($expected, $actual);
+
+    }
 }

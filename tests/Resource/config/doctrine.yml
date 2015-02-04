@@ -1,8 +1,13 @@
 doctrine:
-    dbname:             test
+    dbname:             %parameters.database_name%
     host:               localhost
-    port:               3306
+    port:               %parameters.database_port%
     user:               root
-    password:           noises
+    password:           %parameters.database_password%
     driver:             pdo_mysql
-    charset:            utf8
+    charset:            %parameters.charset%
+
+parameters:
+   database_name: test
+   database_password: passwordtest
+   database_port: 3307
